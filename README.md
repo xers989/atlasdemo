@@ -4,21 +4,17 @@ Atlas CRUD
 #### Env File
 .env 파일 생성
 
+MongoDB 접근 정보 및 사용할 Database 지정    
 ````
-MONGODB=mongodb+srv://USER_ID:PASSWORD@cluster1.5qjlg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+MONGODB=mongodb://USER_ID:PASSWORD@cluster1.5qjlg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 DATABASE=DATABASENAME
 ````
 
-#### NPM Install
+#### Local Node test 
 
 `````
 $ npm install
 $ npm install -D nodemon
-`````
-
-#### NPM start
-
-`````
 $ npm start
 `````
 
@@ -47,6 +43,10 @@ curl --location --request POST 'http://localhost:3000/handson' \
     }'
 `````
 
-
-
+#### Docker Build
+`````
+$ docker build -t nodeserver:3.3 .  
+$ docker tag nodeserver:3.3  gcr.io/kyudong-kim/nodeserver:3.3 
+$ docker push gcr.io/kyudong-kim/nodeserver:3.3 
+`````
 
