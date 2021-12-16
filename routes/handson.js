@@ -1,8 +1,5 @@
 const express = require('express');
-const assert = require('assert');
 const MongoClient = require('mongodb').MongoClient;
-const e = require('express');
-const fs = require('fs');
 const dotenv = require('dotenv');
 const router = express.Router();
 
@@ -13,6 +10,8 @@ const connectionString = mongodb;
       
 
 const client = new MongoClient(connectionString);
+
+
 
 router.route('/').get( async(req, res, next) => {
     try{
@@ -63,6 +62,26 @@ router.route('/').get( async(req, res, next) => {
 
         console.log("POST log");
         res.status(201).json(exampleDocument);
+    }catch (err)
+    {
+        console.error(err);
+        next(err);
+    } 
+}).delete(async (req, res, next) => {
+    try{
+        await client.connect();
+        
+        const deleteSSN = req.query.ssn;
+
+        const database = client.db(databasename);
+        const handson = database.collection("handson");
+        
+        const result = await handson.deleteOne(
+            { ssn: deleteSSN }
+          );
+
+        console.log("Delete log"+deleteSSN);
+        res.status(201).json(result);
     }catch (err)
     {
         console.error(err);
